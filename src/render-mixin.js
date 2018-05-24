@@ -4,13 +4,17 @@ window.html = window.html || html;
 
 export default (base = HTMLElement) =>
 class RenderMixin extends base {
+
   constructor() {
     super();
       // check template for slotted and set shadowRoot when nece
-    // if (!this.shadowRoot) this.attachShadow({mode: 'open'});
-
-
+    if (this.template && this.shouldAttachShadow() && !this.shadowRoot)
+      this.attachShadow({mode: 'open'});
     // this._isValidRenderer(this.render);
+  }
+
+  shouldAttachShadow() {
+    return Boolean(this.template.match(/<slot>(.*)<\/slot>/));
   }
 
   connectedCallback() {
