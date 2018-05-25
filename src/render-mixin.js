@@ -14,7 +14,7 @@ class RenderMixin extends base {
   }
 
   shouldAttachShadow() {
-    return Boolean(String(this.template).match(/<slot>(.*)<\/slot>/));
+    return Boolean(String(this.template({}).template).match(/<slot>(.*)<\/slot>/));
   }
 
   connectedCallback() {
