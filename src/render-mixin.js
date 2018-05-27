@@ -19,8 +19,8 @@ class RenderMixin extends base {
 
   connectedCallback() {
     if (super.connectedCallback) super.connectedCallback();
-      this.render = (properties = this.properties) =>
-        render(this, this.template, properties);
+      this.render = (properties = this.properties, template = this.template) =>
+        render(this, template, properties);
 
     if (this.render) {
       this.render();
