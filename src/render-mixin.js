@@ -30,7 +30,7 @@ class RenderMixin extends base {
       // try getting value from property.property
       // fallback to property
       Object.keys(properties).forEach(key =>
-        object[key] = this[key] || properties[key].value || property[key] || key
+        object[key] = this[key] || properties[key].value || properties[key] || key
       );
       properties = object;
     }
