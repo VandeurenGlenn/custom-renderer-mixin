@@ -24,15 +24,16 @@ class RenderMixin extends base {
    * wether or not properties is just an object or indexed object (like {prop: {value: 'value'}})
    */
   isFlat(object) {
-    if (object[Object.keys(object)[0]] && object[Object.keys(object)[0]].value) return false;
+    if (object[Object.keys(object)[0]] && object[Object.keys(object)[0]].hasOwnProperty('value')) return false;
     else return true;
   }
 
   connectedCallback() {
     if (super.connectedCallback) super.connectedCallback();
       this.render = (properties = this.properties, template = this.template) => {
-        // check if we are dealing with an flat or indexed object
-        if (!this.isFlat(properties)) {
+        if (!properties) properties = {};
+        else if (!this.isFlat(properties)) {
+          // check if we are dealing with an flat or indexed object
           // create flat object getting the values from super if there is one
           // default to given properties set properties[key].value
           // this implementation is meant to work with 'property-mixin'
