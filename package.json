@@ -14,7 +14,7 @@
     "rollup": "^0.59.2"
   },
   "dependencies": {
-    "custom-html-tag": "^0.1.0",
-    "custom-renderer": "^0.1.0"
+    "custom-html-tag": "^0.1.6",
+    "custom-renderer": "^0.1.3"
   }
 }
