@@ -3,18 +3,14 @@ import RenderMixin from '../src/render-mixin.js';
 customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
   get properties() {
     return this._properties || {
-      variable: 'hello'
     }
-  }
-
-  set properties(value) {
-    this._properties = value
   }
   constructor() {
     super();
   }
   connectedCallback() {
     super.connectedCallback()
+    this.render({variable: 'hello hello'})
     setTimeout(() => {
       this.render({variable: 'hello hello hello'})
     }, 5000);
