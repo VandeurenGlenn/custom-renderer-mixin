@@ -32,7 +32,6 @@ class RenderMixin extends base {
     if (super.connectedCallback) super.connectedCallback();
       this.render = (properties = this.properties, template = this.template) => {
         // check if we are dealing with an flat or indexed object
-        console.log(this.isFlat(properties));
         if (!this.isFlat(properties)) {
           // create flat object getting the values from super if there is one
           // default to given properties set properties[key].value
@@ -43,7 +42,6 @@ class RenderMixin extends base {
           Object.keys(properties).forEach(key => object[key] = this[key] || properties[key].value);
           properties = object;
         }
-        console.log(properties);
         render(this, template, properties);
       }
     if (this.render) {
