@@ -1,6 +1,6 @@
 {
   "name": "custom-renderer-mixin",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "render-mixin.js",
   "module": "src/render-mixin.js",
   "repository": "https://github.com/vandeurenglenn/custom-renderer-mixin",
