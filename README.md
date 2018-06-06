@@ -39,11 +39,11 @@
 one way property binding
 ```js
 const property = 'hello';
-html`<p>${'property'}</p>`// -> 'hello'
+html`<p>${'property'}</p>`// -> {values: ['hello'], keys= ['property'], strings: ["<p>", "</p>"]}
 ```
 
 mapping arrays objects etc..
 ```js
 const data = [0, 1, 2, 3, 4];
-html`${data.map(i => `<p>${i}</p>`)}` // -> <p>0</p><p>1</p><p>2</p><p>3</p>...
+html`${data.map(i => `<p>${i}</p>`)}` // -> {strings: ['<p>0</p><p>1</p><p>2</p><p>3</p>'], values: [], keys: []}
 ```
