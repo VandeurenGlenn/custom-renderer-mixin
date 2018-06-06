@@ -11,8 +11,68 @@ class RenderMixin extends base {
     if (this.template && this.shouldAttachShadow() && !this.shadowRoot)
       this.attachShadow({mode: 'open'});
 
+    this.set = [];
     this.renderer = this.renderer.bind(this);
     this.render = this.renderer;
+  }
+
+  beforeRender({values, strings, keys}) {
+    const dict = values[values.length - 1] || {};
+    let template = strings[0];
+    let setChanged = false;
+    const changes = [];
+    if (values[0] !== undefined) {
+      keys.forEach((key, i) => {
+        let value = Number.isInteger(key) ? values[key] : dict[key];
+        if (value === undefined && Array.isArray(key)) {
+          value = key.join('');
+        } else if (value === undefined && !Array.isArray(key) && this.set[i]) {
+          value = this.set[i].value; // set previous value, doesn't require developer to pass all properties
+        } else if (value === undefined && !Array.isArray(key) && !this.set[i]) {
+          value = '';
+        }
+        const string = strings[i + 1];
+        const stringLength = string.length;
+        const start = template.length;
+        const end = template.length + value.length;
+        const position = [start, end];
+
+        if (this.set[i] && this.set[i].value !== value) {
+          setChanged = true;
+          changes.push({
+            from: {
+              value: this.set[i].value,
+              position: this.set[i].position,
+            },
+            to: {
+              value,
+              position
+            }
+          });
+          this.set[i].value = value;
+          this.set[i].position = [start, end];
+        } else if (!this.set[i]) {
+          this.set.push({value, position: [start, end]});
+          changes.push({
+            from: {
+              value: null,
+              position
+            },
+            to: {
+              value,
+              position
+            }
+          });
+        }
+        template += `${value}${string}`;
+      });
+    } else {
+      template += strings[0];
+    }
+    return {
+      template,
+      changes
+    };
   }
 
   renderer(properties = this.properties, template = this.template) {
@@ -34,7 +94,7 @@ class RenderMixin extends base {
       );
       properties = object;
     }
-    render(this, template, properties);
+    render(this, this.beforeRender(template(properties)));
   }
 
   /**
