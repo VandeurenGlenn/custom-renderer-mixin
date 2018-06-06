@@ -7,10 +7,6 @@ class RenderMixin extends base {
 
   constructor() {
     super();
-      // check template for slotted and set shadowRoot if not set already
-    if (this.template && this.shouldAttachShadow() && !this.shadowRoot)
-      this.attachShadow({mode: 'open'});
-
     this.set = [];
     this.renderer = this.renderer.bind(this);
     this.render = this.renderer;
@@ -95,14 +91,6 @@ class RenderMixin extends base {
       properties = object;
     }
     render(this, this.beforeRender(template(properties)));
-  }
-
-  /**
-   * wether or not the template contains slot tags
-   */
-  shouldAttachShadow() {
-    if (this.shadowRoot) return false;
-    else return Boolean(String(this.template().template).match(/<slot>(.*)<\/slot>/));
   }
 
   /**
