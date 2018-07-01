@@ -85,9 +85,16 @@ class RenderMixin extends base {
       // try getting value from properties.property.value
       // try getting value from property.property
       // fallback to property
-      Object.keys(properties).forEach(key =>
-        object[key] = this[key] || properties[key].value || properties[key] || key
-      );
+      for (const key of Object.keys(properties)) {
+        let value;
+        if (this[key] !== undefined) value = this[key];
+        else if (properties[key].value !== undefined) {
+          value = properties[key].value;
+        } else {
+          value = properties[key]
+        }
+        object[key] = value
+      };
       properties = object;
     }
     render(this, this.beforeRender(template(properties)));
