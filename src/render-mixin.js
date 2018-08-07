@@ -105,7 +105,12 @@ class RenderMixin extends base {
    */
   isFlat(object) {
     const firstObject = object[Object.keys(object)[0]];
-    if (firstObject && firstObject.hasOwnProperty('value')) return false;
+    if (firstObject)
+      if (firstObject.hasOwnProperty('value') ||
+          firstObject.hasOwnProperty('reflect') ||
+          firstObject.hasOwnProperty('observer') ||
+          firstObject.hasOwnProperty('render'))
+        return false;
     else return true;
   }
 
