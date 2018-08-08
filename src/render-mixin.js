@@ -91,7 +91,7 @@ class RenderMixin extends base {
         else if (properties[key].value !== undefined) {
           value = properties[key].value;
         } else {
-          value = properties[key]
+          value = '';
         }
         object[key] = value
       };
