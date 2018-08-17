@@ -4,8 +4,11 @@ customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
   static get properties() {
     return  {
       variable: {
-       value: 'hello'
-      }
+       value: 'hello',
+     },
+     world: {
+       value: 'world'
+     }
     }
   }
   /**
@@ -23,7 +26,7 @@ customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
     super.connectedCallback()
     // this.render(this.properties)
     setTimeout(() => {
-      this.render({variable: 'hello hello hello'})
+      this.render({variable: 'hello hello hello', world: 'woooooooooooooorld'})
     }, 5000);
   }
 
@@ -34,7 +37,8 @@ customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
   get template() {
     return html`
     <p>${'variable'}</p>
-    ${this.data.map(d => `<p>${d.text}</p>`)}
+    <p>${'world'}</p>
+    ${this.data.map(i => `<p>${i.text}</p>`)}
     `;
   }
 })

@@ -14,11 +14,13 @@ class RenderMixin extends base {
 
   beforeRender({values, strings, keys}) {
     const dict = values[values.length - 1] || {};
-    let template = strings[0];
-    let setChanged = false;
-    const changes = [];
+    const changes = {};
+    let template = null;
+    if (!this.rendered) template = strings[0];
+
     if (values[0] !== undefined) {
       keys.forEach((key, i) => {
+        const string = strings[i + 1];
         let value = Number.isInteger(key) ? values[key] : dict[key];
         if (value === undefined && Array.isArray(key)) {
           value = key.join('');
@@ -27,40 +29,17 @@ class RenderMixin extends base {
         } else if (value === undefined && !Array.isArray(key) && !this.set[i]) {
           value = '';
         }
-        const string = strings[i + 1];
-        const stringLength = string.length;
-        const start = template.length;
-        const end = template.length + value.length;
-        const position = [start, end];
-
-        if (this.set[i] && this.set[i].value !== value) {
-          setChanged = true;
-          changes.push({
-            from: {
-              value: this.set[i].value,
-              position: this.set[i].position,
-            },
-            to: {
-              value,
-              position
-            }
-          });
-          this.set[i].value = value;
-          this.set[i].position = [start, end];
-        } else if (!this.set[i]) {
-          this.set.push({value, position: [start, end]});
-          changes.push({
-            from: {
-              value: null,
-              position
-            },
-            to: {
-              value,
-              position
-            }
-          });
+        if (!this.rendered) {
+          template = template.replace(/(>)[^>]*$/g,  ` render-mixin-id="${key}">`)
+          template += `${value}${string}`;
         }
-        template += `${value}${string}`;
+        if (this.set[key] && this.set[key] !== value) {
+          changes[key] = value;
+          this.set[key] = value;
+        } else if (!this.set[key]) {
+          this.set[key] = value;
+          changes[key] = value
+        }
       });
     } else {
       template += strings[0];
