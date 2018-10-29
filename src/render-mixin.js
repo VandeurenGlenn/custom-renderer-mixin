@@ -67,7 +67,7 @@ class RenderMixin extends base {
       for (const key of Object.keys(properties)) {
         let value;
         if (this[key] !== undefined) value = this[key];
-        else if (properties[key].value !== undefined) {
+        else if (properties[key] && properties[key].value !== undefined) {
           value = properties[key].value;
         } else {
           value = '';
