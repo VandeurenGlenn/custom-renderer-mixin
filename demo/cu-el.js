@@ -1,4 +1,4 @@
-import RenderMixin from '../src/render-mixin.js';
+import RenderMixin from './../src/render-mixin.js';
 
 customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
   static get properties() {
@@ -8,6 +8,9 @@ customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
      },
      world: {
        value: 'world'
+     },
+     val: {
+       value: 'otherside'
      }
     }
   }
@@ -26,7 +29,9 @@ customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
     super.connectedCallback()
     // this.render(this.properties)
     setTimeout(() => {
-      this.render({variable: 'hello hello hello', world: 'woooooooooooooorld'})
+      this.variable = 'hello hello hello'
+      this.world = 'woooooooooooooorld'
+      this.render()
     }, 5000);
   }
 
@@ -38,7 +43,10 @@ customElements.define('cu-el', class CuEl extends RenderMixin(HTMLElement) {
     return html`
     <p>${'variable'}</p>
     <p>${'world'}</p>
+    <a href="${'val'}">${'val'}</a>
+    <ul>
     ${this.data.map(i => `<p>${i.text}</p>`)}
+    </ul>
     `;
   }
 })

@@ -1,5 +1,5 @@
-import render from '../../custom-renderer/src/render.js';
-import html from '../../custom-html-tag/src/html.js';
+import render from './../node_modules/custom-renderer/src/render.js';
+import html from './../node_modules/custom-html-tag/src/html.js';
 window.html = window.html || html;
 
 export default (base = HTMLElement) =>
@@ -30,8 +30,13 @@ class RenderMixin extends base {
           value = '';
         }
         if (!this.rendered) {
-          template = template.replace(/(>)[^>]*$/g,  ` render-mixin-id="${key}">`)
-          template += `${value}${string}`;
+          if (string.charAt(0) === '"' && string.charAt(string.length - 1 === '>')) {
+            template += `${value}" render-mixin-property="${key}${string}`;
+          } else {
+            template = template.replace(/(>)[^>]*$/g,  ` render-mixin-id="${key}">`)
+            template += `${value}${string}`
+          }
+          
         }
         if (this.set[key] && this.set[key] !== value) {
           changes[key] = value;
