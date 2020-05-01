@@ -1,5 +1,5 @@
-import render from './../node_modules/custom-renderer/src/render.js';
-import html from './../node_modules/custom-html-tag/src/html.js';
+import render from './../../custom-renderer/src/render.js';
+import html from './../../custom-html-tag/src/html.js';
 window.html = window.html || html;
 
 export default (base = HTMLElement) =>
