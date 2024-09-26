@@ -2,25 +2,20 @@
 # yarn lockfile v1
 
 
-"@types/estree@0.0.39":
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
-
-"@types/node@*":
-  version "10.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.1.tgz#51092fbacaed768a122a293814474fbf6e5e8b6d"
-
 custom-html-tag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/custom-html-tag/-/custom-html-tag-1.0.0.tgz#ad271e9cf05c6a4bb6889202c2d367f34194f5f2"
 
-custom-renderer@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/custom-renderer/-/custom-renderer-1.0.0.tgz#571175a9bc4beb1ae436a6f8631c6df7ce65b558"
+custom-renderer@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/custom-renderer/-/custom-renderer-1.1.0.tgz#78b98abed40c875c624e2aa70af19c8c456cc397"
 
-rollup@^0.59.2:
-  version "0.59.4"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.59.4.tgz#6f80f7017c22667ff1bf3e62adf8624a44cc44aa"
-  dependencies:
-    "@types/estree" "0.0.39"
-    "@types/node" "*"
+fsevents@~2.3.2:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
+
+rollup@^2.79.2:
+  version "2.79.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.79.2.tgz#f150e4a5db4b121a21a747d762f701e5e9f49090"
+  optionalDependencies:
+    fsevents "~2.3.2"
